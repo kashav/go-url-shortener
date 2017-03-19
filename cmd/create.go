@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/google/go-github/github"
+	"github.com/kshvmdn/shorten/markup"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +22,7 @@ var (
 	name      string
 	cname     string
 	isPrivate bool
-	files     = []string{"index.html", "README.md"}
+	files     = map[string](func() string){"index.html": markup.GetIndex, "README.md": markup.GetReadme}
 )
 
 var createCmd = &cobra.Command{
@@ -44,7 +45,7 @@ Example:
 
 		// Include the CNAME file iff --cname flag is provided
 		if cname != "" {
-			files = append(files, "CNAME")
+			files["cname"] = markup.GetCname
 		}
 
 		var tmpDir string = createFiles(map[string]string{
@@ -62,10 +63,10 @@ Example:
 		checkError(err)
 
 		entries := make([]github.TreeEntry, 0, len(files))
-		for _, fn := range files {
+		for fname, _ := range files {
 			hash := sha1.New()
 
-			fp := fmt.Sprintf("/tmp/shorten/%s/%s", tmpDir, fn)
+			fp := fmt.Sprintf("/tmp/shorten/%s/%s", tmpDir, fname)
 
 			f, err := os.Open(fp)
 			checkError(err)
@@ -88,7 +89,7 @@ Example:
 			checkError(err)
 
 			entries = append(entries, github.TreeEntry{
-				Path: github.String(fn),
+				Path: github.String(fname),
 				Mode: github.String("100644"),
 				Type: github.String("blob"),
 				SHA:  github.String(*blob.SHA),
@@ -148,17 +149,16 @@ func createFiles(ipt map[string]string) string {
 	err := os.MkdirAll(fmt.Sprintf("/tmp/shorten/%s", tmpDir), 0777)
 	checkError(err)
 
-	for _, fn := range files {
-		src := fmt.Sprintf("./template/%s", fn)
-		dest := fmt.Sprintf("/tmp/shorten/%s/%s", tmpDir, fn)
+	for file, fn := range files {
+		dest := fmt.Sprintf("/tmp/shorten/%s/%s", tmpDir, file)
 
-		tmpl, err := template.ParseFiles(src)
+		tmpl, err := template.New(file).Parse(fn())
 		checkError(err)
 
 		f, err := os.Create(dest)
 		checkError(err)
 
-		err = tmpl.ExecuteTemplate(f, fn, ipt)
+		err = tmpl.ExecuteTemplate(f, file, ipt)
 		checkError(err)
 	}
 
