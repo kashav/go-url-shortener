@@ -1,8 +1,12 @@
 ## shorten
 
-> Create and manage a personal URL shortener with GitHub Pages.
+> A personal URL shortener via GitHub Pages.
 
-Shorten lets you create, view, and manage shortened URLs. Repositories are saved to your GitHub account and all pages are hosted with GitHub Pages. Redirection is done with HTML5's [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv).
+Shorten lets you create, view, and manage shortened URLs. All pages are hosted with GitHub Pages and redirection is done with HTML5's [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv).
+
+### Demo
+
+![](./.github/shorten.gif)
 
 ### Installation
 
@@ -46,7 +50,7 @@ Shorten lets you create, view, and manage shortened URLs. Repositories are saved
     Use "shorten [command] --help" for more information about a command.
     ```
 
-  - On first run, you'll be prompted for a GitHub access token. You can request that [here](https://github.com/settings/tokens). Shorten only requires the `repo`, `user`, and `delete_repo` permissions. Note that your access token will **only** be stored locally (in `~/.shorten.toml`).
+  - On first run, you'll be prompted for a GitHub access token. You can request that [here](https://github.com/settings/tokens). Shorten only requires the `repo`, `user`, and `delete_repo` permissions. Note that your access token will only be stored locally (in `~/.shorten.toml`).
 
 ### Contribute
 
