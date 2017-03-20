@@ -35,8 +35,10 @@ Example:
   $ shorten create --url=https://github.com/golang/go
   $ shorten create --url=https://github.com/golang/go --name=go --private`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if url == "" {
-			log.Fatal("Expected URL flag.")
+
+		for url == "" {
+			fmt.Print("Please input URL you want to shorten : ")
+			fmt.Scanln(&url)
 		}
 
 		if name == "" {
@@ -63,7 +65,7 @@ Example:
 		checkError(err)
 
 		entries := make([]github.TreeEntry, 0, len(files))
-		for fname, _ := range files {
+		for fname := range files {
 			hash := sha1.New()
 
 			fp := fmt.Sprintf("/tmp/shorten/%s/%s", tmpDir, fname)
@@ -134,7 +136,7 @@ Example:
 }
 
 func randStr(n int) string {
-	var chars string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	rand.Seed(time.Now().UTC().UnixNano())
 	b := make([]byte, n)
 	for i := range b {
