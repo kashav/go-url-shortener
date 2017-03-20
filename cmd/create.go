@@ -35,7 +35,8 @@ Example:
   $ shorten create --url=https://github.com/golang/go
   $ shorten create --url=https://github.com/golang/go --name=go --private`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if url == "" {
+
+		for url == "" {
 			fmt.Print("Please input URL you want to shorten : ")
 			fmt.Scanln(&url)
 		}
