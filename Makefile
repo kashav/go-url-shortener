@@ -1,4 +1,4 @@
-.PHONY: all build install clean
+.PHONY: all build install lint clean
 
 all: build
 
@@ -7,6 +7,9 @@ build:
 
 install:
 	go get -v
+
+lint:
+	${GOPATH}/bin/golint . cmd markup
 
 clean:
 	rm shorten
