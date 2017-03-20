@@ -35,6 +35,7 @@ var (
 	ctx      context.Context
 )
 
+// RootCmd is a cobra command object for wrapping every command that will be executed
 var RootCmd = &cobra.Command{
 	Use:   "shorten",
 	Short: "Shorten URLs via GitHub Pages.",
@@ -58,8 +59,8 @@ func initConfig() {
 		log.Fatal(err)
 	}
 
-	var isValid bool = false
-	var fileExists bool = false
+	var isValid = false
+	var fileExists = false
 
 	confFile = fmt.Sprintf("%s/.shorten.toml", usr.HomeDir)
 
