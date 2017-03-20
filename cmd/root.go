@@ -19,8 +19,8 @@ import (
 type entry struct {
 	Owner       string `toml:"owner"`
 	Repo        string `toml:"repo"`
-	RepoUrl     string `toml:"repo_url"`
-	RedirectUrl string `toml:"redirect_url"`
+	RepoURL     string `toml:"repo_url"`
+	RedirectURL string `toml:"redirect_url"`
 }
 
 type config struct {
@@ -42,6 +42,7 @@ var RootCmd = &cobra.Command{
 	Long:  "Create and manage shortened URLs with GitHub Pages.",
 }
 
+// Execute adds all child commands to the root command sets flags appropriately.
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)

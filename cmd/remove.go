@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -18,11 +17,10 @@ Example:
   $ shorten remove x29jzI8m
   $ shorten remove a243234a jasdH234 524aAdsd`,
 	Run: func(cmd *cobra.Command, args []string) {
-
 		// do input check before running command
 		for len(args) == 0 {
 			var repoName string
-			fmt.Print("Please input the name(s) of the repos you'd like to remove:  : ")
+			fmt.Print("Please input the name(s) of the repos to remove: ")
 			fmt.Scanln(&repoName)
 
 			if repoName != "" {
@@ -52,13 +50,13 @@ func findRepo(repoName string) (entry, error) {
 		}
 	}
 
-	return entry{}, errors.New("repository not found")
+	return entry{}, fmt.Errorf("repository `%s` not found", repoName)
 }
 
 func removeRepo(repoName string) error {
 	repo, err := findRepo(repoName)
 	if err != nil {
-		return fmt.Errorf("repository '%s' not found", repoName)
+		return err
 	}
 
 	_, err = client.Repositories.Delete(ctx, repo.Owner, repo.Repo)
@@ -67,6 +65,5 @@ func removeRepo(repoName string) error {
 	}
 
 	fmt.Printf("Successfully removed %s/%s.\n", repo.Owner, repo.Repo)
-
 	return nil
 }

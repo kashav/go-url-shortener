@@ -1,5 +1,6 @@
 package markup
 
+// GetIndex returns the string template for the repo's index.html file.
 func GetIndex() string {
 	return `<!DOCTYPE html>
 <html lang="en">
@@ -14,10 +15,12 @@ func GetIndex() string {
 </html>`
 }
 
+// GetCname returns the string template for the repo's CNAME file.
 func GetCname() string {
 	return "{{.cname}}"
 }
 
+// GetReadme returns the string template for the repo's README.md file.
 func GetReadme() string {
 	return `### {{.title}}
 

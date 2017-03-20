@@ -5,9 +5,6 @@ all: build
 build:
 	go build -v -o shorten main.go
 
-run: build
-	shorten
-
 install:
 	go get -v
 

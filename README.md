@@ -56,12 +56,6 @@ Shorten lets you create, view, and manage shortened URLs. All pages are hosted w
 
 This project is completely open source. Feel free to [open an issue](https://github.com/kshvmdn/shorten/issues) with questions / suggestions / requests or [create a pull request](https://github.com/kshvmdn/shorten/pulls) to contribute!
 
-#### TODO
-
-- Better handling of error messages, right now I just `log.Fatal` everything.
-- Add functionality to check if a URL already has a repository (this isn't hard to implement since we could just search through the current entries, but I think it's worth it to find a more efficient method).
-- Verify that a repository with the specified name doesn't already exist. If it does and it's a _Shorten repository_, add a way to replace the URL.
-
 ### License
 
 [MIT](./LICENSE) © Kashav Madan.

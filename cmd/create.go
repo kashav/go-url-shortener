@@ -35,9 +35,8 @@ Example:
   $ shorten create --url=https://github.com/golang/go
   $ shorten create --url=https://github.com/golang/go --name=go --private`,
 	Run: func(cmd *cobra.Command, args []string) {
-
 		for url == "" {
-			fmt.Print("Please input URL you want to shorten : ")
+			fmt.Print("Please input the URL to shorten: ")
 			fmt.Scanln(&url)
 		}
 
@@ -125,8 +124,8 @@ Example:
 		conf.Entries = append(conf.Entries, entry{
 			Owner:       *repo.Owner.Login,
 			Repo:        name,
-			RepoUrl:     fmt.Sprintf("https://github.com/%s/%s", *repo.Owner.Login, *repo.Name),
-			RedirectUrl: url,
+			RepoURL:     fmt.Sprintf("https://github.com/%s/%s", *repo.Owner.Login, *repo.Name),
+			RedirectURL: url,
 		})
 		saveConfig()
 
@@ -145,7 +144,6 @@ func randStr(n int) string {
 	return string(b)
 }
 
-//go:generate go run template
 func createFiles(ipt map[string]string) string {
 	tmpDir := randStr(24)
 	err := os.MkdirAll(fmt.Sprintf("/tmp/shorten/%s", tmpDir), 0777)

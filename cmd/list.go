@@ -15,7 +15,7 @@ Example:
   $ shorten list`,
 	Run: func(cmd *cobra.Command, args []string) {
 		for i, entry := range conf.Entries {
-			fmt.Printf("%d) %s -> %s\n", i+1, entry.Repo, entry.RedirectUrl)
+			fmt.Printf("%d) %s -> %s\n", i+1, entry.Repo, entry.RedirectURL)
 		}
 	},
 }
