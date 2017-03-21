@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -10,7 +11,7 @@ var removeCmd = &cobra.Command{
 	Use:   "remove",
 	Short: "Remove a shortened URL and delete the associated repository.",
 	Long: `Remove a shortened URL and delete the associated repository. Specify
-the URL with it's associated repository name (may contains more than 1 repo separated by space as parameters).
+the URL using it's associated repository name (optionally delete multiple repos with a space-separated list of names).
 
 Example:
   $ shorten remove go
@@ -50,13 +51,14 @@ func findRepo(repoName string) (entry, error) {
 		}
 	}
 
-	return entry{}, fmt.Errorf("repository `%s` not found", repoName)
+	return entry{}, errors.New("repository not found")
 }
 
 func removeRepo(repoName string) error {
 	repo, err := findRepo(repoName)
 	if err != nil {
-		return err
+		fmt.Printf("Repository `%s` not found.\n", repoName)
+		return nil
 	}
 
 	_, err = client.Repositories.Delete(ctx, repo.Owner, repo.Repo)
