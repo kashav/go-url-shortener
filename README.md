@@ -22,7 +22,7 @@ Shorten lets you create, view, and manage shortened URLs. All pages are hosted w
   - Or install directly via source:
 
     ```sh
-    $ git clone https://github.com/kshvmdn/shorten.git $GOPATH/src/kshvmdn/shorten
+    $ git clone https://github.com/kshvmdn/shorten.git $GOPATH/src/github.com/kshvmdn/shorten
     $ cd $_
     $ make install && make
     $ ./shorten --help
