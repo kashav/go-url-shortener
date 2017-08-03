@@ -24,7 +24,7 @@ point lets you create, view, and manage shortened URLs. All pages are hosted on 
     ```sh
     $ git clone https://github.com/kshvmdn/point.git $GOPATH/src/github.com/kshvmdn/point
     $ cd $_
-    $ make install
+    $ make bootstrap install
     $ point --help
     ```
 
@@ -124,8 +124,8 @@ This project is completely open source. Feel free to [open an issue](https://git
 Before submitting code, please ensure that tests are passing and the linter is happy. The following commands may be of use, refer to the [Makefile](./Makefile) to see what they do.
 
 ```sh
-$ make install \
-       get-tools
+$ make bootstrap \
+       install
 $ make fmt \
        vet \
        lint

@@ -22,10 +22,12 @@ install:
 	@echo "+ $@"
 	@go install $(PKGS)
 
-.PHONY: get-tools
-get-tools:
+.PHONY: bootstrap
+bootstrap:
 	@echo "+ $@"
 	@go get -u -v github.com/golang/lint/golint
+	@go get -u -v github.com/golang/dep/cmd/dep
+	@dep ensure
 
 .PHONY: clean
 clean:

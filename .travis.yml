@@ -10,7 +10,7 @@ matrix:
     - go: tip
   fast_finish: true
 install:
-  - make install get-tools
+  - make bootstrap install
 before_script:
   - make fmt vet lint
 script:
