@@ -34,7 +34,8 @@ vendor/
 
 # Compiled output files
 main
-shorten
+redir
 
-# Personal configuration
-shorten.toml
+# Personal configuration / access tokens
+.redir.toml
+.env
