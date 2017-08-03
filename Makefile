@@ -1,6 +1,6 @@
 PREFIX ?= $(shell pwd)
 
-NAME = redir
+NAME = point
 PKG = github.com/kshvmdn/$(NAME)
 MAIN = $(PKG)/cmd/$(NAME)
 

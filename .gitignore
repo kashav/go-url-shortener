@@ -33,9 +33,9 @@ vendor/
 .glide/
 
 # Compiled output files
-redir
-!cmd/redir
+point
+!cmd/point
 
 # Personal configuration / access tokens
-.redir.toml
+.point.toml
 .env

@@ -1,4 +1,4 @@
-package redir
+package point
 
 import (
 	"context"

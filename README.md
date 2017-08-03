@@ -1,8 +1,8 @@
-## redir
+## point
 
 > Create and manage shortened URLs with GitHub pages.
 
-redir lets you create, view, and manage shortened URLs. All pages are hosted on GitHub Pages and redirection is done with HTML5's [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv).
+point lets you create, view, and manage shortened URLs. All pages are hosted on GitHub Pages and redirection is done with HTML5's [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv).
 
 ### Demo
 
@@ -15,28 +15,28 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
   - Install with Go:
 
     ```sh
-    $ go get -v github.com/kshvmdn/redir/...
-    $ redir --help
+    $ go get -v github.com/kshvmdn/point/...
+    $ point --help
     ```
 
   - Or, install directly via source:
 
     ```sh
-    $ git clone https://github.com/kshvmdn/redir.git $GOPATH/src/github.com/kshvmdn/redir
+    $ git clone https://github.com/kshvmdn/point.git $GOPATH/src/github.com/kshvmdn/point
     $ cd $_
     $ make install
-    $ redir --help
+    $ point --help
     ```
 
 ### Usage
 
-  - You should export your personal GitHub access token as `REDIR_ACCESS_TOKEN`. You can request one [here](https://github.com/settings/tokens) with the `repo` and `delete_repo` permissions.
+  - You should export your personal GitHub access token as `POINT_ACCESS_TOKEN`. You can request one [here](https://github.com/settings/tokens) with the `repo` and `delete_repo` permissions.
 
-  - View the help dialogue with the `--help` flag. View the specific help dialogue for each command by running `redir [command] --help`.
+  - View the help dialogue with the `--help` flag. View the specific help dialogue for each command by running `point [command] --help`.
 
     ```console
-    $ redir --help
-    usage: redir [<flags>] <command> [<args> ...]
+    $ point --help
+    usage: point [<flags>] <command> [<args> ...]
 
     Create and manage shortened URLs with GitHub pages.
 
@@ -63,8 +63,8 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
   - **create**
 
     ```console
-    $ redir create --help
-    usage: redir create [<flags>] <url>
+    $ point create --help
+    usage: point create [<flags>] <url>
 
     Create a new entry.
 
@@ -87,8 +87,8 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
   - **list**
 
     ```console
-    $ redir list --help
-    usage: redir list
+    $ point list --help
+    usage: point list
 
     Print a list of active entries.
 
@@ -102,8 +102,8 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
   - **remove**
 
     ```console
-    $ redir remove --help
-    usage: redir remove <repo>...
+    $ point remove --help
+    usage: point remove <repo>...
 
     Remove one or more entries.
 
@@ -119,8 +119,22 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
 
 ### Contribute
 
-This project is completely open source. Feel free to [open an issue](https://github.com/kshvmdn/redir/issues) with questions / suggestions / requests or [create a pull request](https://github.com/kshvmdn/redir/pulls) to contribute!
+This project is completely open source. Feel free to [open an issue](https://github.com/kshvmdn/point/issues) or [create a pull request](https://github.com/kshvmdn/point/pulls).
+
+Before submitting code, please ensure that tests are passing and the linter is happy. The following commands may be of use, refer to the [Makefile](./Makefile) to see what they do.
+
+```sh
+$ make install \
+       get-tools
+$ make fmt \
+       vet \
+       lint
+$ make test \
+       coverage
+$ make bootstrap-dist \
+       dist
+```
 
 ### License
 
-redir source code is released under the [MIT license](./LICENSE).
+point source code is released under the [MIT license](./LICENSE).

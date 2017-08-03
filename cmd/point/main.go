@@ -5,12 +5,14 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/kshvmdn/redir"
-	"github.com/kshvmdn/redir/version"
+	"github.com/kshvmdn/point"
+	"github.com/kshvmdn/point/version"
 )
 
+const accessTokenName = "POINT_ACCESS_TOKEN"
+
 var (
-	app        = kingpin.New("redir", "Create and manage shortened URLs with GitHub pages.")
+	app        = kingpin.New("point", "Create and manage shortened URLs with GitHub pages.")
 	appVerbose = app.Flag("verbose", "Show detailed output.").Bool()
 
 	create        = app.Command("create", "Create a new entry.").Alias("new")
@@ -31,16 +33,16 @@ func main() {
 	app.Version(version.VERSION)
 	command := kingpin.MustParse(app.Parse(os.Args[1:]))
 
-	accessToken := os.Getenv("REDIR_ACCESS_TOKEN")
+	accessToken := os.Getenv(accessTokenName)
 	if accessToken == "" {
-		app.Fatalf("expected access token, run `export REDIR_ACCESS_TOKEN=<token>`")
+		app.Fatalf("expected access token, run `export %s=<token>`", accessTokenName)
 	}
 
-	var r redir.Runner
+	var r point.Runner
 
 	switch command {
 	case create.FullCommand():
-		r = &redir.Creator{
+		r = &point.Creator{
 			CNAME:   *createCNAME,
 			Name:    *createName,
 			Private: *createPrivate,
@@ -51,16 +53,16 @@ func main() {
 		}
 
 	case list.FullCommand():
-		r = &redir.Lister{}
+		r = &point.Lister{}
 
 	case remove.FullCommand():
-		r = &redir.Remover{
+		r = &point.Remover{
 			Repos:   *removeRepos,
 			Verbose: *appVerbose,
 		}
 	}
 
-	if err := redir.Start(r, accessToken); err != nil {
+	if err := point.Start(r, accessToken); err != nil {
 		kingpin.Fatalf(err.Error())
 	}
 }

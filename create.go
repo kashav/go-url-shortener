@@ -1,4 +1,4 @@
-package redir
+package point
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/google/go-github/github"
-	"github.com/kshvmdn/redir/template"
+	"github.com/kshvmdn/point/template"
 )
 
 // Creator implements Runner for the create operation.
