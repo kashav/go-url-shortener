@@ -28,6 +28,7 @@ type entries struct {
 	Entries []entry `toml:"entry"`
 }
 
+// Runner is an interface representing a redir operation.
 type Runner interface {
 	run(context.Context, *github.Client) error
 }

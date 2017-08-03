@@ -2,6 +2,7 @@ package template
 
 import "fmt"
 
+// Index returns the template for the index.html file.
 func Index(url, title, cname string) string {
 	return fmt.Sprintf(`<!DOCTYPE html>
 <html lang="en">
@@ -20,10 +21,12 @@ func Index(url, title, cname string) string {
 	)
 }
 
+// CNAME returns the template for the CNAME file.
 func CNAME(url, title, cname string) string {
 	return cname
 }
 
+// README returns the template for the README.md file.
 func README(url, title, cname string) string {
 	return fmt.Sprintf(`### %[2]s
 

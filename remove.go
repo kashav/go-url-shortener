@@ -11,6 +11,7 @@ import (
 	"github.com/google/go-github/github"
 )
 
+// Remover implements Runner for the remove operation.
 type Remover struct {
 	Repos   []string
 	Verbose bool

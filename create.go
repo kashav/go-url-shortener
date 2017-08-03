@@ -44,7 +44,7 @@ func (c *Creator) run(ctx context.Context, client *github.Client) error {
 	}
 	defer os.RemoveAll(dir)
 
-	var createFunc func(context.Context, *github.Client, string) (*entry, error) = c.createRepo
+	var createFunc = c.createRepo
 	if c.Subdir {
 		createFunc = c.createSubdir
 	}
@@ -61,7 +61,7 @@ func (c *Creator) run(ctx context.Context, client *github.Client) error {
 
 func (c *Creator) createSubdir(ctx context.Context, client *github.Client, dir string) (*entry, error) {
 	if c.Repo == "" {
-		return nil, errors.New("expected repo with --subdir flag (use --repo).")
+		return nil, errors.New("expected repo with --subdir flag (use --repo)")
 	}
 
 	split := strings.Split(c.Repo, "/")
