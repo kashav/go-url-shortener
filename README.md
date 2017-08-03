@@ -6,7 +6,7 @@ point lets you create, view, and manage shortened URLs. All pages are hosted on 
 
 ### Demo
 
-- _Coming soon._
+[![asciicast](https://asciinema.org/a/132016.png)](https://asciinema.org/a/132016)
 
 ### Installation
 
