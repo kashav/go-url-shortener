@@ -19,23 +19,26 @@ type Remover struct {
 
 func (r *Remover) run(ctx context.Context, client *github.Client) error {
 	for _, repo := range r.Repos {
-		i, en := r.findRepo(repo)
+		i, ent := r.findRepo(repo)
 		if i < 0 {
-			return fmt.Errorf("couldn't find entry %s", repo)
+			return fmt.Errorf("could not find entry %s", repo)
 		}
 
 		var err error
-		if en.IsSubdir {
-			err = r.removeSubdir(ctx, client, en)
+		if ent.IsSubdir {
+			err = r.removeSubdir(ctx, client, ent)
 		} else {
-			_, err = client.Repositories.Delete(ctx, en.Owner, en.Repo)
+			_, err = client.Repositories.Delete(ctx, ent.Owner, ent.Repo)
 		}
 		if err != nil {
 			return err
 		}
 
 		state.Log.Entries = append(state.Log.Entries[:i], state.Log.Entries[i+1:]...)
-		saveLog()
+		if err := saveLog(); err != nil {
+			return err
+		}
+		fmt.Printf("Removed entry %s.\n", ent.Name)
 	}
 	return nil
 }

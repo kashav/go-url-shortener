@@ -24,8 +24,8 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
     ```sh
     $ git clone https://github.com/kshvmdn/redir.git $GOPATH/src/github.com/kshvmdn/redir
     $ cd $_
-    $ make install && make
-    $ ./redir --help
+    $ make install
+    $ redir --help
     ```
 
 ### Usage
@@ -34,7 +34,7 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
 
   - View the help dialogue with the `--help` flag. View the specific help dialogue for each command by running `redir [command] --help`.
 
-    ```sh
+    ```console
     $ redir --help
     usage: redir [<flags>] <command> [<args> ...]
 
@@ -42,6 +42,7 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
 
     Flags:
       --help     Show context-sensitive help (also try --help-long and --help-man).
+      --verbose  Show detailed output.
       --version  Show application version.
 
     Commands:
@@ -55,7 +56,65 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
         Print a list of active entries.
 
       remove <repo>...
-        Remove an entry and delete the associated repository.
+        Remove one or more entries.
+
+    ```
+
+  - **create**
+
+    ```console
+    $ redir create --help
+    usage: redir create [<flags>] <url>
+
+    Create a new entry.
+
+    Flags:
+          --help         Show context-sensitive help (also try --help-long and --help-man).
+          --verbose      Show detailed output.
+          --version      Show application version.
+      -c, --cname=CNAME  Optional CNAME record for this repository.
+      -n, --name=NAME    Endpoint for the shortened URL, chosen randomly if empty.
+      -p, --private      Make this repository private.
+      -s, --subdir       Use a subdirectory in a pre-existing repository, instead of creating a new repository.
+      -r, --repo=REPO    A pre-existing repository to be used with the --subdir option (expects `foo/bar` for
+                         `https://github.com/foo/bar`). Pushes to the default branch.
+
+    Args:
+      <url>  The URL to shorten.
+
+    ```
+
+  - **list**
+
+    ```console
+    $ redir list --help
+    usage: redir list
+
+    Print a list of active entries.
+
+    Flags:
+      --help     Show context-sensitive help (also try --help-long and --help-man).
+      --verbose  Show detailed output.
+      --version  Show application version.
+
+    ```
+
+  - **remove**
+
+    ```console
+    $ redir remove --help
+    usage: redir remove <repo>...
+
+    Remove one or more entries.
+
+    Flags:
+      --help     Show context-sensitive help (also try --help-long and --help-man).
+      --verbose  Show detailed output.
+      --version  Show application version.
+
+    Args:
+      <repo>  List of entries to remove.
+
     ```
 
 ### Contribute

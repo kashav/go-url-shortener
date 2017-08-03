@@ -55,8 +55,14 @@ func (c *Creator) run(ctx context.Context, client *github.Client) error {
 	if ent == nil {
 		return errors.New("failed to create entry")
 	}
+
 	state.Log.Entries = append(state.Log.Entries, *ent)
-	return saveLog()
+	if err := saveLog(); err != nil {
+		return err
+	}
+
+	fmt.Printf("Created new entry: %s -> %s.\n", ent.Name, ent.RedirectURL)
+	return nil
 }
 
 func (c *Creator) createSubdir(ctx context.Context, client *github.Client, dir string) (*entry, error) {
