@@ -15,40 +15,58 @@ import (
 )
 
 type entry struct {
+	Name        string `toml:"name"`
 	Owner       string `toml:"owner"`
 	Repo        string `toml:"repo"`
 	RepoURL     string `toml:"repo_url"`
 	RedirectURL string `toml:"redirect_url"`
-	Private     bool   `toml:"private"`
+	IsSubdir    bool   `toml:"subdir"`
+	IsPrivate   bool   `toml:"private"`
 }
 
 type entries struct {
 	Entries []entry `toml:"entry"`
 }
 
-const CONFIG_FILE = ".redir.toml"
+type Runner interface {
+	run(context.Context, *github.Client) error
+}
+
+const logFile = ".redir.toml"
 
 var state struct {
 	File string
 	Log  entries
 }
 
-// MakeClient creates a new GitHub OAuth2 client with the provided access
+// Start creates a new client and invokes the runner's run method.
+func Start(r Runner, accessToken string) (err error) {
+	ctx := context.Background()
+	client := makeClient(ctx, accessToken)
+
+	if err := parseEntries(); err != nil {
+		return err
+	}
+
+	return r.run(ctx, client)
+}
+
+// makeClient creates a new GitHub OAuth2 client with the provided access
 // token.
-func MakeClient(accessToken string, ctx context.Context) *github.Client {
+func makeClient(ctx context.Context, accessToken string) *github.Client {
 	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
 	tc := oauth2.NewClient(ctx, ts)
 	return github.NewClient(tc)
 }
 
-// Init creates the log file if it doesn't exist and reads all current
+// parseEntries creates the log file if it doesn't exist and reads all current
 // entries into the program's state.
-func Init() error {
+func parseEntries() error {
 	u, err := user.Current()
 	if err != nil {
 		return err
 	}
-	state.File = fmt.Sprintf("%s/%s", u.HomeDir, CONFIG_FILE)
+	state.File = fmt.Sprintf("%s/%s", u.HomeDir, logFile)
 
 	if _, err := os.Stat(state.File); os.IsNotExist(err) {
 		// file doesn't exist yet, create it!

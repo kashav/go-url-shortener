@@ -34,7 +34,7 @@ redir lets you create, view, and manage shortened URLs. All pages are hosted on 
 
   - View the help dialogue with the `--help` flag. View the specific help dialogue for each command by running `redir [command] --help`.
 
-    ```
+    ```sh
     $ redir --help
     usage: redir [<flags>] <command> [<args> ...]
 
