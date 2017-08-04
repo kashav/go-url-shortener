@@ -35,6 +35,7 @@ vendor/
 # Compiled output files
 point
 !cmd/point
+dist
 
 # Personal configuration / access tokens
 .point.toml

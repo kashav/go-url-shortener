@@ -78,7 +78,7 @@ bootstrap-dist:
 .PHONY: build-all
 build-all: $(SRCS) VERSION
 	@echo "+ $@"
-	@gox -verbose \ \
+	@gox -verbose \
 		-os="darwin freebsd netbsd openbsd linux solaris windows" \
 		-arch="386 amd64 arm arm64" \
 		-osarch="!darwin/arm !darwin/arm64" \
