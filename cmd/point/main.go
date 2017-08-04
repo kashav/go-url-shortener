@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -30,7 +31,7 @@ var (
 )
 
 func main() {
-	app.Version(version.VERSION)
+	app.Version(fmt.Sprintf("point v%s", version.VERSION))
 	command := kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	accessToken := os.Getenv(accessTokenName)

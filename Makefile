@@ -10,6 +10,8 @@ DIST_DIRS := find . -type d | sed "s|^\./||" | grep -v \\. | tr '\n' '\0' | xarg
 SRCS := $(shell find . -type f -name '*.go')
 PKGS := $(shell go list ./... | grep -v /vendor)
 
+VERSION := $(shell cat version/version.go | grep 'const VERSION =' | cut -c 18-22)
+
 .PHONY: all
 all: $(NAME)
 
@@ -90,7 +92,7 @@ dist: clean build-all
 	@cd $(DIST_DIR) && \
 		$(DIST_DIRS) cp ../LICENSE {} && \
 		$(DIST_DIRS) cp ../README.md {} && \
-		$(DIST_DIRS) tar -zcf ${NAME}-{}.tar.gz {} && \
-		$(DIST_DIRS) zip -r -q ${NAME}-{}.zip {} && \
+		$(DIST_DIRS) tar -zcf ${NAME}-$(VERSION)-{}.tar.gz {} && \
+		$(DIST_DIRS) zip -r -q ${NAME}-$(VERSION)-{}.zip {} && \
 		$(DIST_DIRS) rm -rf {} && \
 		cd ..
