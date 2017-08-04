@@ -33,8 +33,9 @@ vendor/
 .glide/
 
 # Compiled output files
-main
-shorten
+point
+!cmd/point
 
-# Personal configuration
-shorten.toml
+# Personal configuration / access tokens
+.point.toml
+.env

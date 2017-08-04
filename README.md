@@ -1,61 +1,140 @@
-## shorten
+## point
 
-> A personal URL shortener via GitHub Pages.
+> Create and manage shortened URLs with GitHub pages.
 
-Shorten lets you create, view, and manage shortened URLs. All pages are hosted with GitHub Pages and redirection is done with HTML5's [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv).
+point lets you create, view, and manage shortened URLs. All pages are hosted on GitHub Pages and redirection is done with HTML5's [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv).
 
 ### Demo
 
-![](./.github/shorten.gif)
+[![asciicast](https://asciinema.org/a/132016.png)](https://asciinema.org/a/132016)
 
 ### Installation
 
-  - Requires Go to be [installed](https://golang.org/doc/install) and [configured](https://golang.org/doc/install#testing).
+  - You should have Go [installed](https://golang.org/doc/install) and [configured](https://golang.org/doc/install#testing).
 
   - Install with Go:
 
     ```sh
-    $ go get -v github.com/kshvmdn/shorten
-    $ shorten --help
+    $ go get -v github.com/kshvmdn/point/...
+    $ point --help
     ```
 
-  - Or install directly via source:
+  - Or, install directly via source:
 
     ```sh
-    $ git clone https://github.com/kshvmdn/shorten.git $GOPATH/src/github.com/kshvmdn/shorten
+    $ git clone https://github.com/kshvmdn/point.git $GOPATH/src/github.com/kshvmdn/point
     $ cd $_
-    $ make install && make
-    $ ./shorten --help
+    $ make bootstrap install
+    $ point --help
     ```
 
 ### Usage
 
-  - View the help dialogue by passing the `--help` / `-h` flag. View the specific help dialogue for each command by running `shorten [command] --help`.
+  - You should export your personal GitHub access token as `POINT_ACCESS_TOKEN`. You can request one [here](https://github.com/settings/tokens) with the `repo` and `delete_repo` permissions.
+
+  - View the help dialogue with the `--help` flag. View the specific help dialogue for each command by running `point [command] --help`.
+
+    ```console
+    $ point --help
+    usage: point [<flags>] <command> [<args> ...]
+
+    Create and manage shortened URLs with GitHub pages.
+
+    Flags:
+      --help     Show context-sensitive help (also try --help-long and --help-man).
+      --verbose  Show detailed output.
+      --version  Show application version.
+
+    Commands:
+      help [<command>...]
+        Show help.
+
+      create [<flags>] <url>
+        Create a new entry.
+
+      list
+        Print a list of active entries.
+
+      remove <repo>...
+        Remove one or more entries.
 
     ```
-    $ shorten --help
-    Create and manage shortened URLs with GitHub Pages.
 
-    Usage:
-      shorten [command]
+  - **create**
 
-    Available Commands:
-      create      Create a new shortened URL.
-      export      Print the current config. file.
-      help        Help about any command
-      import      Import a pre-existing config. file.
-      list        Print a list of currently active URLs.
-      remove      Remove a shortened URL and delete the associated repository.
+    ```console
+    $ point create --help
+    usage: point create [<flags>] <url>
 
-    Use "shorten [command] --help" for more information about a command.
+    Create a new entry.
+
+    Flags:
+          --help         Show context-sensitive help (also try --help-long and --help-man).
+          --verbose      Show detailed output.
+          --version      Show application version.
+      -c, --cname=CNAME  Optional CNAME record for this repository.
+      -n, --name=NAME    Endpoint for the shortened URL, chosen randomly if empty.
+      -p, --private      Make this repository private.
+      -s, --subdir       Use a subdirectory in a pre-existing repository, instead of creating a new repository.
+      -r, --repo=REPO    A pre-existing repository to be used with the --subdir option (expects `foo/bar` for
+                         `https://github.com/foo/bar`). Pushes to the default branch.
+
+    Args:
+      <url>  The URL to shorten.
+
     ```
 
-  - On first run, you'll be prompted for a GitHub access token. You can request that [here](https://github.com/settings/tokens). Shorten only requires the `repo`, `user`, and `delete_repo` permissions. Note that your access token will only be stored locally (in `~/.shorten.toml`).
+  - **list**
+
+    ```console
+    $ point list --help
+    usage: point list
+
+    Print a list of active entries.
+
+    Flags:
+      --help     Show context-sensitive help (also try --help-long and --help-man).
+      --verbose  Show detailed output.
+      --version  Show application version.
+
+    ```
+
+  - **remove**
+
+    ```console
+    $ point remove --help
+    usage: point remove <repo>...
+
+    Remove one or more entries.
+
+    Flags:
+      --help     Show context-sensitive help (also try --help-long and --help-man).
+      --verbose  Show detailed output.
+      --version  Show application version.
+
+    Args:
+      <repo>  List of entries to remove.
+
+    ```
 
 ### Contribute
 
-This project is completely open source. Feel free to [open an issue](https://github.com/kshvmdn/shorten/issues) with questions / suggestions / requests or [create a pull request](https://github.com/kshvmdn/shorten/pulls) to contribute!
+This project is completely open source. Feel free to [open an issue](https://github.com/kshvmdn/point/issues) or [create a pull request](https://github.com/kshvmdn/point/pulls).
+
+Before submitting code, please ensure that tests are passing and the linter is happy. The following commands may be of use, refer to the [Makefile](./Makefile) to see what they do.
+
+```sh
+$ make bootstrap \
+       install
+$ make fmt \
+       vet \
+       lint
+$ make test \
+       coverage
+$ make bootstrap-dist \
+       dist
+```
 
 ### License
 
-[MIT](./LICENSE) © Kashav Madan.
+point source code is released under the [MIT license](./LICENSE).
