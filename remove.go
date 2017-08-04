@@ -49,7 +49,7 @@ func (r *Remover) removeSubdir(ctx context.Context, client *github.Client, ent *
 		return err
 	}
 
-	dir, err := ioutil.TempDir("", "redir-")
+	dir, err := ioutil.TempDir("", "point-")
 	if err != nil {
 		return err
 	}
@@ -58,7 +58,7 @@ func (r *Remover) removeSubdir(ctx context.Context, client *github.Client, ent *
 	for _, cmd := range [][]string{
 		{"clone", repo.GetCloneURL(), dir},
 		{"-C", dir, "rm", "-r", ent.Name[strings.LastIndex(ent.Name, "/")+1:]},
-		{"-C", dir, "commit", "-m", fmt.Sprintf("redir: remove entry (%s)", ent.Name)},
+		{"-C", dir, "commit", "-m", fmt.Sprintf("point: remove entry (%s)", ent.Name)},
 		{"-C", dir, "push"},
 	} {
 		gitCmd := exec.Command("git", cmd...)

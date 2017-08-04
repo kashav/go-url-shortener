@@ -28,12 +28,12 @@ type entries struct {
 	Entries []entry `toml:"entry"`
 }
 
-// Runner is an interface representing a redir operation.
+// Runner is an interface representing a point operation.
 type Runner interface {
 	run(context.Context, *github.Client) error
 }
 
-const logFile = ".redir.toml"
+const logFile = ".point.toml"
 
 var state struct {
 	File string

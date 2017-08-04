@@ -38,7 +38,7 @@ func (c *Creator) run(ctx context.Context, client *github.Client) error {
 		c.Name = randomString(4)
 	}
 
-	dir, err := ioutil.TempDir("", "redir-")
+	dir, err := ioutil.TempDir("", "point-")
 	if err != nil {
 		return err
 	}
@@ -95,7 +95,7 @@ func (c *Creator) createSubdir(ctx context.Context, client *github.Client, dir s
 
 	cmds := [][]string{
 		{"-C", dir, "add", "."},
-		{"-C", dir, "commit", "-m", "redir: new entry", "-m", fmt.Sprintf("%s -> %s", c.Name, c.URL)},
+		{"-C", dir, "commit", "-m", "point: new entry", "-m", fmt.Sprintf("%s -> %s", c.Name, c.URL)},
 		{"-C", dir, "push"},
 	}
 	if err := c.runGitCmds(cmds...); err != nil {
