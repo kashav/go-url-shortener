@@ -6,8 +6,8 @@ import (
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
-	"github.com/kshvmdn/point"
-	"github.com/kshvmdn/point/version"
+	"github.com/kashav/point"
+	"github.com/kashav/point/version"
 )
 
 const accessTokenName = "POINT_ACCESS_TOKEN"

@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/google/go-github/github"
-	"github.com/kshvmdn/point/template"
+	"github.com/kashav/point/template"
 )
 
 // Creator implements Runner for the create operation.
