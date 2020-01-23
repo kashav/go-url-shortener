@@ -10,7 +10,7 @@ func Index(url, title, cname string) string {
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0; url=%[1]s" />
   <script type="text/javascript">
-    window.location.href = "%[1]s"
+    window.location.replace("%[1]s")
   </script>
   <title>%[2]s</title>
 </head>
