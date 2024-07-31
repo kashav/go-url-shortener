@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/alecthomas/kingpin/v2"
 
 	shortener "github.com/kashav/go-url-shortener"
-	"github.com/kashav/go-url-shortener/version"
 )
 
 const accessTokenName = "GO_URL_SHORTENER_ACCESS_TOKEN"
@@ -31,7 +29,6 @@ var (
 )
 
 func main() {
-	app.Version(fmt.Sprintf("go-url-shortener v%s", version.VERSION))
 	command := kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	accessToken := os.Getenv(accessTokenName)

@@ -15,7 +15,7 @@ Basic usage:
   ```sh
   % git clone https://github.com/kashav/go-url-shortener && cd $_
   % go build ./cmd/shortener/main.go
-  go-url-shortener % ./main --help
+  % ./main --help
   usage: go-url-shortener [<flags>] <command> [<args> ...]
 
   Create and manage shortened URLs with GitHub pages.
@@ -24,7 +24,6 @@ Basic usage:
   Flags:
     --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
     --[no-]verbose  Show detailed output.
-    --[no-]version  Show application version.
 
   Commands:
   help [<command>...]
@@ -40,7 +39,7 @@ Basic usage:
       Remove one or more entries.
 
 
-  go-url-shortener % ./main create --help
+  % ./main create --help
   usage: go-url-shortener create [<flags>] <url>
 
   Create a new entry.
@@ -49,7 +48,6 @@ Basic usage:
   Flags:
         --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
         --[no-]verbose  Show detailed output.
-        --[no-]version  Show application version.
     -c, --cname=CNAME   Optional CNAME record for this repository.
     -n, --name=NAME     Endpoint for the shortened URL, chosen randomly if empty.
     -p, --[no-]private  Make this repository private.
@@ -61,7 +59,7 @@ Basic usage:
   Args:
     <url>  The URL to shorten.
 
-  go-url-shortener % ./main list --help
+  % ./main list --help
   usage: go-url-shortener list
 
   Print a list of active entries.
@@ -70,9 +68,8 @@ Basic usage:
   Flags:
     --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
     --[no-]verbose  Show detailed output.
-    --[no-]version  Show application version.
 
-  go-url-shortener % ./main remove --help
+  % ./main remove --help
   usage: go-url-shortener remove <repo>...
 
   Remove one or more entries.
@@ -81,7 +78,6 @@ Basic usage:
   Flags:
     --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
     --[no-]verbose  Show detailed output.
-    --[no-]version  Show application version.
 
   Args:
     <repo>  List of entries to remove.
