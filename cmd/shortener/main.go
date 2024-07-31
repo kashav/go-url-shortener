@@ -6,14 +6,14 @@ import (
 
 	"github.com/alecthomas/kingpin/v2"
 
-	"github.com/kashav/point"
-	"github.com/kashav/point/version"
+	shortener "github.com/kashav/go-url-shortener"
+	"github.com/kashav/go-url-shortener/version"
 )
 
-const accessTokenName = "POINT_ACCESS_TOKEN"
+const accessTokenName = "GO_URL_SHORTENER_ACCESS_TOKEN"
 
 var (
-	app        = kingpin.New("point", "Create and manage shortened URLs with GitHub pages.")
+	app        = kingpin.New("go-url-shortener", "Create and manage shortened URLs with GitHub pages.")
 	appVerbose = app.Flag("verbose", "Show detailed output.").Bool()
 
 	create        = app.Command("create", "Create a new entry.").Alias("new")
@@ -31,7 +31,7 @@ var (
 )
 
 func main() {
-	app.Version(fmt.Sprintf("point v%s", version.VERSION))
+	app.Version(fmt.Sprintf("go-url-shortener v%s", version.VERSION))
 	command := kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	accessToken := os.Getenv(accessTokenName)
@@ -39,11 +39,11 @@ func main() {
 		app.Fatalf("expected access token, run `export %s=<token>`", accessTokenName)
 	}
 
-	var r point.Runner
+	var r shortener.Runner
 
 	switch command {
 	case create.FullCommand():
-		r = &point.Creator{
+		r = &shortener.Creator{
 			CNAME:   *createCNAME,
 			Name:    *createName,
 			Private: *createPrivate,
@@ -54,16 +54,16 @@ func main() {
 		}
 
 	case list.FullCommand():
-		r = &point.Lister{}
+		r = &shortener.Lister{}
 
 	case remove.FullCommand():
-		r = &point.Remover{
+		r = &shortener.Remover{
 			Repos:   *removeRepos,
 			Verbose: *appVerbose,
 		}
 	}
 
-	if err := point.Start(r, accessToken); err != nil {
+	if err := shortener.Start(r, accessToken); err != nil {
 		kingpin.Fatalf(err.Error())
 	}
 }

@@ -1,4 +1,4 @@
-module github.com/kashav/point
+module github.com/kashav/go-url-shortener
 
 go 1.22.4
 

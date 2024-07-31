@@ -1,4 +1,4 @@
-package point
+package shortener
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/google/go-github/github"
-	"github.com/kashav/point/template"
+	"github.com/kashav/go-url-shortener/template"
 )
 
 // Creator implements Runner for the create operation.
@@ -38,7 +38,7 @@ func (c *Creator) run(ctx context.Context, client *github.Client) error {
 		c.Name = randomString(4)
 	}
 
-	dir, err := ioutil.TempDir("", "point-")
+	dir, err := ioutil.TempDir("", fmt.Sprintf("%s-", packageName))
 	if err != nil {
 		return err
 	}
@@ -95,7 +95,7 @@ func (c *Creator) createSubdir(ctx context.Context, client *github.Client, dir s
 
 	cmds := [][]string{
 		{"-C", dir, "add", "."},
-		{"-C", dir, "commit", "-m", "point: new entry", "-m", fmt.Sprintf("%s -> %s", c.Name, c.URL)},
+		{"-C", dir, "commit", "-m", fmt.Sprintf("%s: new entry", packageName), "-m", fmt.Sprintf("%s -> %s", c.Name, c.URL)},
 		{"-C", dir, "push"},
 	}
 	if err := c.runGitCmds(cmds...); err != nil {

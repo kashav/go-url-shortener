@@ -1,140 +1,89 @@
-## point
+# go-url-shortener
 
-> Create and manage shortened URLs with GitHub pages.
+A simple URL shortener that uses GitHub as a backend. This uses the [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv) to do URL redirection.
 
-point lets you create, view, and manage shortened URLs. All pages are hosted on GitHub Pages and redirection is done with HTML5's [`http-equiv` refresh attribute](https://developer.mozilla.org/en/docs/Web/HTML/Element/meta#attr-http-equiv).
-
-### Demo
+## Demo
 
 [![asciicast](https://asciinema.org/a/132016.png)](https://asciinema.org/a/132016)
 
-### Installation
+## Usage
 
-  - You should have Go [installed](https://golang.org/doc/install) and [configured](https://golang.org/doc/install#testing).
+You should export your personal GitHub access token as `GO_URL_SHORTENER_ACCESS_TOKEN`. Request one [here](https://github.com/settings/tokens) with the `repo` and `delete_repo` permissions.
 
-  - Install with Go:
+Basic usage:
 
-    ```sh
-    $ go get -v github.com/kshvmdn/point/...
-    $ point --help
-    ```
+  ```sh
+  % git clone https://github.com/kashav/go-url-shortener && cd $_
+  % go build ./cmd/shortener/main.go
+  go-url-shortener % ./main --help
+  usage: go-url-shortener [<flags>] <command> [<args> ...]
 
-  - Or, install directly via source:
+  Create and manage shortened URLs with GitHub pages.
 
-    ```sh
-    $ git clone https://github.com/kshvmdn/point.git $GOPATH/src/github.com/kshvmdn/point
-    $ cd $_
-    $ make bootstrap install
-    $ point --help
-    ```
 
-### Usage
+  Flags:
+    --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
+    --[no-]verbose  Show detailed output.
+    --[no-]version  Show application version.
 
-  - You should export your personal GitHub access token as `POINT_ACCESS_TOKEN`. You can request one [here](https://github.com/settings/tokens) with the `repo` and `delete_repo` permissions.
+  Commands:
+  help [<command>...]
+      Show help.
 
-  - View the help dialogue with the `--help` flag. View the specific help dialogue for each command by running `point [command] --help`.
+  create [<flags>] <url>
+      Create a new entry.
 
-    ```console
-    $ point --help
-    usage: point [<flags>] <command> [<args> ...]
+  list
+      Print a list of active entries.
 
-    Create and manage shortened URLs with GitHub pages.
+  remove <repo>...
+      Remove one or more entries.
 
-    Flags:
-      --help     Show context-sensitive help (also try --help-long and --help-man).
-      --verbose  Show detailed output.
-      --version  Show application version.
 
-    Commands:
-      help [<command>...]
-        Show help.
+  go-url-shortener % ./main create --help
+  usage: go-url-shortener create [<flags>] <url>
 
-      create [<flags>] <url>
-        Create a new entry.
+  Create a new entry.
 
-      list
-        Print a list of active entries.
 
-      remove <repo>...
-        Remove one or more entries.
+  Flags:
+        --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
+        --[no-]verbose  Show detailed output.
+        --[no-]version  Show application version.
+    -c, --cname=CNAME   Optional CNAME record for this repository.
+    -n, --name=NAME     Endpoint for the shortened URL, chosen randomly if empty.
+    -p, --[no-]private  Make this repository private.
+    -s, --[no-]subdir   Use a subdirectory in a pre-existing repository, instead of creating a new
+                        repository.
+    -r, --repo=REPO     A pre-existing repository to be used with the --subdir option (expects `foo/bar`
+                        for `https://github.com/foo/bar`). Pushes to the default branch.
 
-    ```
+  Args:
+    <url>  The URL to shorten.
 
-  - **create**
+  go-url-shortener % ./main list --help
+  usage: go-url-shortener list
 
-    ```console
-    $ point create --help
-    usage: point create [<flags>] <url>
+  Print a list of active entries.
 
-    Create a new entry.
 
-    Flags:
-          --help         Show context-sensitive help (also try --help-long and --help-man).
-          --verbose      Show detailed output.
-          --version      Show application version.
-      -c, --cname=CNAME  Optional CNAME record for this repository.
-      -n, --name=NAME    Endpoint for the shortened URL, chosen randomly if empty.
-      -p, --private      Make this repository private.
-      -s, --subdir       Use a subdirectory in a pre-existing repository, instead of creating a new repository.
-      -r, --repo=REPO    A pre-existing repository to be used with the --subdir option (expects `foo/bar` for
-                         `https://github.com/foo/bar`). Pushes to the default branch.
+  Flags:
+    --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
+    --[no-]verbose  Show detailed output.
+    --[no-]version  Show application version.
 
-    Args:
-      <url>  The URL to shorten.
+  go-url-shortener % ./main remove --help
+  usage: go-url-shortener remove <repo>...
 
-    ```
+  Remove one or more entries.
 
-  - **list**
 
-    ```console
-    $ point list --help
-    usage: point list
+  Flags:
+    --[no-]help     Show context-sensitive help (also try --help-long and --help-man).
+    --[no-]verbose  Show detailed output.
+    --[no-]version  Show application version.
 
-    Print a list of active entries.
+  Args:
+    <repo>  List of entries to remove.
+  ```
 
-    Flags:
-      --help     Show context-sensitive help (also try --help-long and --help-man).
-      --verbose  Show detailed output.
-      --version  Show application version.
-
-    ```
-
-  - **remove**
-
-    ```console
-    $ point remove --help
-    usage: point remove <repo>...
-
-    Remove one or more entries.
-
-    Flags:
-      --help     Show context-sensitive help (also try --help-long and --help-man).
-      --verbose  Show detailed output.
-      --version  Show application version.
-
-    Args:
-      <repo>  List of entries to remove.
-
-    ```
-
-### Contribute
-
-This project is completely open source. Feel free to [open an issue](https://github.com/kshvmdn/point/issues) or [create a pull request](https://github.com/kshvmdn/point/pulls).
-
-Before submitting code, please ensure that tests are passing and the linter is happy. The following commands may be of use, refer to the [Makefile](./Makefile) to see what they do.
-
-```sh
-$ make bootstrap \
-       install
-$ make fmt \
-       vet \
-       lint
-$ make test \
-       coverage
-$ make bootstrap-dist \
-       dist
-```
-
-### License
-
-point source code is released under the [MIT license](./LICENSE).

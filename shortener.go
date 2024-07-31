@@ -1,4 +1,4 @@
-package point
+package shortener
 
 import (
 	"bytes"
@@ -12,6 +12,11 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/google/go-github/github"
+)
+
+const (
+	packageName = "go-url-shortner"
+	logFile     = "." + packageName + ".toml"
 )
 
 type entry struct {
@@ -28,12 +33,10 @@ type entries struct {
 	Entries []entry `toml:"entry"`
 }
 
-// Runner is an interface representing a point operation.
+// Runner is an interface representing a shorten operation.
 type Runner interface {
 	run(context.Context, *github.Client) error
 }
-
-const logFile = ".point.toml"
 
 var state struct {
 	File string
