@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 
 	"github.com/google/go-github/github"
@@ -74,6 +75,15 @@ func (r *Remover) removeSubdir(ctx context.Context, client *github.Client, ent *
 }
 
 func (r *Remover) findRepo(repo string) (int, *entry) {
+	// try to parse as int
+	entryNum, err := strconv.Atoi(repo)
+	if err == nil {
+		// interpert input as entry number
+		entryNum-- // `point list` index starts from 1
+		if 0 <= entryNum && entryNum < len(state.Log.Entries) {
+			return entryNum, &state.Log.Entries[entryNum]
+		}
+	}
 	for i, ent := range state.Log.Entries {
 		if ent.Name == repo {
 			return i, &ent
